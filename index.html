@@ -872,8 +872,8 @@ body.sheet-open .bottom-nav{display:none !important;}
           <input id="dateInput" type="date" required>
         </div>
         <div class="field">
-          <label for="noteInput">备注（不少于20字）</label>
-          <input id="noteInput" type="text" minlength="20" maxlength="60" placeholder="请填写至少20个字" autocomplete="off" required>
+          <label for="noteInput">备注</label>
+          <input id="noteInput" type="text" maxlength="60" placeholder="可选" autocomplete="off">
         </div>
       </div>
       <div class="form-actions">
@@ -1545,20 +1545,13 @@ body.sheet-open .bottom-nav{display:none !important;}
       els.dateInput.focus();
       return;
     }
-    var noteText = els.noteInput.value.trim();
-    if(noteText.length < 20){
-      showToast("备注至少填写20个字");
-      els.noteInput.focus();
-      return;
-    }
-
     var record = {
       id: state.editId || createId(),
       type: state.formType,
       amount: amount,
       category: state.formCategory,
       date: els.dateInput.value,
-      note: noteText.slice(0,60),
+      note: els.noteInput.value.trim().slice(0,60),
       createdAt: state.editId
         ? (state.records.find(function(item){ return item.id === state.editId; }) || {}).createdAt || Date.now()
         : Date.now()
